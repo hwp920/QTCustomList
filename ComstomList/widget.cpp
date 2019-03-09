@@ -23,11 +23,17 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    currentWidget = NULL;
 
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
-//    setAttribute(Qt::WA_TranslucentBackground);
-//    ui->contentWidget->setAttribute(Qt::WA_TranslucentBackground, false);
+    setAttribute(Qt::WA_TranslucentBackground);
 
+    ui->contentWidget->setAttribute(Qt::WA_StyledBackground,true);
+    ui->contentWidget->setStyleSheet("background-color: rgb(220,220, 220)");
+
+    ui->listWidget->setAttribute(Qt::WA_StyledBackground,true);
+    ui->listWidget->setStyleSheet("background-color: rgb(255,255, 255)");
+//    ui->contentWidget->setAttribute(Qt::WA_TranslucentBackground, false);
 }
 
 Widget::~Widget()
@@ -56,6 +62,12 @@ void Widget::addItem()
     list->setItemWidget(item, w);
 
     connect(w, &MyListItemWidget::deleteItem, this, &Widget::delecteItem);
+    connect(w, &MyListItemWidget::editOnWidget, [=](){
+        if(currentWidget != NULL) {
+            currentWidget->relocate();
+        }
+        currentWidget = w;
+    });
     datas.append(itemData);
 }
 
@@ -92,8 +104,11 @@ void Widget::on_addButton_clicked()
     addItem();
 }
 
-void Widget::delecteItem(HHItemData *data)
+void Widget::delecteItem(MyListItemWidget *widget, HHItemData *data)
 {
+    if(widget == currentWidget) {
+        currentWidget = NULL;
+    }
     int index = datas.indexOf(data);
     qDebug() << "delecteItem:" << index;
     delete ui->listWidget->item(index);

@@ -33,7 +33,7 @@ void MyListItemWidget::setupUI()
     QWidget *fontArea = new QWidget(this);
 
     name = new QLabel(fontArea);
-    name->setFont(QFont("Times", 10, QFont::Bold));
+    name->setFont(QFont("Times", 18, QFont::Bold));
     name->setStyleSheet("QLabel{padding-left:5px;padding-right:5px;}");
 
     introduce = new QLabel(fontArea);
@@ -67,11 +67,19 @@ void MyListItemWidget::setupUI()
     this->setLayout(horLayout);
 }
 
+void MyListItemWidget::relocate()
+{
+    QRect frame = geometry();
+    frame.moveLeft(0);
+    setGeometry(frame);
+}
+
 
 void MyListItemWidget::mousePressEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::LeftButton) {
         pressPoint = e->globalPos();
+        emit editOnWidget(this);
     }
 }
 
@@ -110,5 +118,5 @@ void MyListItemWidget::mouseReleaseEvent(QMouseEvent *e)
 
 void MyListItemWidget::delecteButtonClick()
 {
-    emit deleteItem(data);
+    emit deleteItem(this, data);
 }

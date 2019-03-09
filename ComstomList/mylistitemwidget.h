@@ -17,9 +17,6 @@ public:
      QString iconPath;
      QString name;
      QString introduction;
-
-
-
 };
 
 class MyListItemWidget : public QWidget
@@ -29,9 +26,11 @@ public:
     explicit MyListItemWidget(QWidget *parent = nullptr);
 
     void setData(HHItemData *data);
+    void relocate();
 
 signals:
-    void deleteItem(HHItemData *);
+    void deleteItem(MyListItemWidget *, HHItemData *);
+    void editOnWidget(MyListItemWidget *);
 
 public slots:
 

@@ -26,7 +26,7 @@ protected:
 private slots:
 
     void on_addButton_clicked();
-    void delecteItem(HHItemData *);
+    void delecteItem(MyListItemWidget *, HHItemData *);
 
 private:
     void addItem();
@@ -36,6 +36,7 @@ private:
 
     QPoint      pressPoint;
     QVector<HHItemData *>  datas;
+    MyListItemWidget *currentWidget;
 };
 
 #endif // WIDGET_H
