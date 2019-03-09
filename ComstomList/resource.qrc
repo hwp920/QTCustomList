@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/ic_minus.png</file>
+        <file>images/ic_add.png</file>
+        <file>images/HotDog.jpg</file>
+        <file>images/li.jpg</file>
+        <file>images/logo.jpg</file>
+        <file>images/PACT.jpg</file>
+        <file>images/yang.jpg</file>
+        <file>images/zhang.jpg</file>
+        <file>images/iphone_bg.png</file>
+    </qresource>
+</RCC>
